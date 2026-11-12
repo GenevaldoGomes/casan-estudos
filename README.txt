@@ -15,3 +15,17 @@ VERSÃO 2
 - CASAN 2008 Desenvolvimento — FEPESE
 - CASAN 2011 DBA — FEPESE
 - Links para fonte, cronômetro e registro de resultado
+
+
+VERSÃO 3 — PROVAS REAIS INTERATIVAS
+- CASAN 2016 — Analista de Sistema / Desenvolvimento de Sistemas — AOCP — 50 questões
+- CASAN 2008 — Analista de Sistema / Desenvolvimento de Sistemas — FEPESE — 40 questões
+- CASAN 2011 — Analista de Sistemas / DBA — FEPESE — 50 questões
+- PDFs incluídos no próprio app
+- Cartão-resposta digital A-E
+- Navegação questão a questão
+- Cronômetro
+- Correção automática
+- Questões anuladas tratadas separadamente
+- Histórico do último resultado salvo no navegador
+- Funciona offline após cache do PWA
