@@ -39,3 +39,11 @@ VERSÃO 4 — QUESTÃO POR QUESTÃO (CELULAR)
 - Próxima/anterior, limpar resposta e navegador recolhível.
 - Correção automática e histórico continuam funcionando.
 - PDFs permanecem no pacote apenas como fonte de conferência.
+
+VERSÃO 6 — CORREÇÃO DE CACHE/DEPLOY
+- Identificação visual V6 no cabeçalho.
+- Tela de prova SEM PDF embutido.
+- Uma questão por vez com imagem recortada.
+- Service worker atualizado com network-first para HTML/CSS/JS.
+- skipWaiting + clients.claim para substituir versões antigas.
+- CSS e JS com ?v=6 para evitar cache do navegador.
