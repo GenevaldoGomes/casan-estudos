@@ -7,3 +7,11 @@ Publicação: Vercel como site estático ou Render Static Site.
 Inclui dashboard, cronograma, tópicos, banco inicial de questões, caderno de erros, progresso em localStorage e modo PWA/offline.
 
 Próxima evolução recomendada: Supabase Auth + banco de questões + sincronização do progresso entre dispositivos.
+
+
+VERSÃO 2
+- Área Provas Anteriores
+- CASAN 2016 Desenvolvimento — AOCP
+- CASAN 2008 Desenvolvimento — FEPESE
+- CASAN 2011 DBA — FEPESE
+- Links para fonte, cronômetro e registro de resultado
