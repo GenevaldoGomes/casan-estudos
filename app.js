@@ -77,6 +77,24 @@ function subjectFor2016(q){
   if(q>=21 && q<=50) return "Conhecimentos Específicos";
   return "Outros";
 }
+
+function subjectFor2008(q){
+  if(q>=1 && q<=5) return "Língua Portuguesa";
+  if(q>=6 && q<=8) return "Língua Inglesa";
+  if(q>=9 && q<=12) return "Matemática";
+  if(q>=13 && q<=15) return "Aspectos Históricos e Geográficos";
+  if(q>=16 && q<=40) return "Conhecimentos Específicos";
+  return "Outros";
+}
+function subjectFor2011(q){
+  if(q>=1 && q<=4) return "Português";
+  if(q>=5 && q<=8) return "Inglês";
+  if(q>=9 && q<=11) return "Atualidades";
+  if(q>=12 && q<=15) return "Noções de Informática";
+  if(q>=16 && q<=50) return "Conhecimentos Específicos";
+  return "Outros";
+}
+
 let wrongRetryMode=false;
 let wrongRetryQuestions=[];
 
@@ -96,8 +114,12 @@ function renderExamQuestion(){
    textCard.innerHTML=`<div class="q-stem">${tq.stem}</div>`+
      ["A","B","C","D","E"].map(l=>`<div class="q-option-text"><b>(${l})</b><span>${tq.options[l]||""}</span></div>`).join("");
    let support="";
-   if(activeExam.id==="casan2016" && examQ>=1 && examQ<=10) support=textExam.support.portuguese||"";
-   if(activeExam.id==="casan2016" && examQ>=16 && examQ<=20) support=textExam.support.english||"";
+   if(activeExam.id==="casan2016" && textExam.support){
+     if(examQ>=1 && examQ<=10) support=textExam.support.portuguese||"";
+     if(examQ>=16 && examQ<=20) support=textExam.support.english||"";
+   }
+   if(activeExam.id==="casan2008" && textExam.support && examQ>=6 && examQ<=8) support=textExam.support.english||"";
+   if(activeExam.id==="casan2011" && textExam.support && examQ>=5 && examQ<=8) support=textExam.support.english||"";
    if(supportBox && supportText){
      supportBox.hidden=!support;
      supportText.textContent=support;
@@ -186,7 +208,10 @@ document.getElementById("finishExam").onclick=()=>{
 
  document.getElementById("examWrongList").innerHTML=wrongs.length
    ? wrongs.map(x=>{
-       const subject=activeExam.id==="casan2016"?subjectFor2016(x.n):"Questão de prova anterior";
+       let subject="Questão de prova anterior";
+       if(activeExam.id==="casan2016") subject=subjectFor2016(x.n);
+       if(activeExam.id==="casan2008") subject=subjectFor2008(x.n);
+       if(activeExam.id==="casan2011") subject=subjectFor2011(x.n);
        return `<div class="wrong-item">
          <div><b>Questão ${x.n}</b><span class="subject-pill">${subject}</span></div>
          <div>Sua resposta: <b>${x.ans}</b> • Gabarito: <b>${x.key}</b></div>

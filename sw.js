@@ -1,5 +1,5 @@
-const CACHE='casan-study-v10';
-const STATIC=['./','index.html','styles.css?v=10','questions-data.js?v=10','exam-text-data.js?v=10','app.js?v=10','manifest.json','icon.svg'];
+const CACHE='casan-study-v12';
+const STATIC=['./','index.html','styles.css?v=12','questions-data.js?v=12','exam-text-data.js?v=12','app.js?v=12','manifest.json','icon.svg'];
 self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC)));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{

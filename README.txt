@@ -77,3 +77,10 @@ VERSÃO 10
 - Resultado final com acertos, erros, percentual e tempo.
 - Lista de erros mostra o assunto/área.
 - Botão "Refazer somente as erradas".
+
+VERSÃO 12
+- CASAN 2008: 40/40 questões em texto nativo.
+- CASAN 2011: 50/50 questões em texto nativo.
+- Marcadores (X) do gabarito removidos das duas provas.
+- Questões com gráfico/planilha receberam dados de apoio em texto.
+- Mantidos avanço automático, resultado detalhado e refazer erradas.
