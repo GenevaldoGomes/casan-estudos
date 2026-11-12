@@ -59,8 +59,6 @@ function startPriorExam(id){
   activeExam=priorExams.find(x=>x.id===id); if(!activeExam)return;
   examQ=1; examAnswers={}; examSeconds=0; clearInterval(examClock); examClock=null;
   document.getElementById("examTitle").textContent=activeExam.title;
-  document.getElementById("pdfFrame").src=activeExam.pdf+"#page=1&view=FitH";
-  document.getElementById("openPdf").href=activeExam.pdf;
   document.getElementById("examTimer").textContent="00:00:00";
   document.getElementById("timerToggle").textContent="Iniciar cronômetro";
   show("exam"); renderExamQuestion(); renderExamGrid(); updateExamProgress();
@@ -74,6 +72,8 @@ document.getElementById("timerToggle").onclick=()=>{
 function renderExamQuestion(){
  if(!activeExam)return;
  document.getElementById("examQLabel").textContent=`Questão ${examQ}`;
+ const img=document.getElementById("questionImage");
+ if(img){img.src=`questions/${activeExam.id}-q${String(examQ).padStart(2,"0")}.webp`;img.alt=`${activeExam.title} — questão ${examQ}`;}
  document.getElementById("examChoices").innerHTML=["A","B","C","D","E"].map(l=>`<button class="exam-choice ${examAnswers[examQ]===l?"selected":""}" onclick="setExamAnswer('${l}')">${l}</button>`).join("");
  document.querySelectorAll("#examGrid button").forEach(b=>b.classList.toggle("current",+b.dataset.q===examQ));
 }
@@ -90,6 +90,12 @@ function updateExamProgress(){
  const answered=Object.keys(examAnswers).length;
  document.getElementById("examProgress").textContent=`${answered}/${activeExam.questions} respondidas`;
 }
+
+const clearBtn=document.getElementById("clearAnswer");
+if(clearBtn) clearBtn.onclick=()=>{delete examAnswers[examQ];renderExamQuestion();renderExamGrid();updateExamProgress();};
+const nextAns=document.getElementById("nextAfterAnswer");
+if(nextAns) nextAns.onclick=()=>goExamQ(examQ<activeExam.questions?examQ+1:examQ);
+
 document.getElementById("finishExam").onclick=()=>{
  if(!activeExam)return;
  const unanswered=activeExam.questions-Object.keys(examAnswers).length;

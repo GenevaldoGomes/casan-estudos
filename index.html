@@ -44,18 +44,20 @@
   <div class="head"><div><small>PROVA REAL</small><h2 id="examTitle"></h2></div><button data-go="previous">Sair</button></div>
   <div class="exam-tools card">
     <div><b id="examProgress"></b><span id="examTimer">00:00:00</span></div>
-    <div><button id="timerToggle">Iniciar cronômetro</button><a id="openPdf" class="button-link" target="_blank">Abrir PDF</a></div>
+    <div><button id="timerToggle">Iniciar cronômetro</button></div>
   </div>
-  <div class="exam-layout">
-    <div class="pdf-wrap card"><iframe id="pdfFrame" title="Prova anterior em PDF"></iframe></div>
-    <div class="answer-wrap card">
+  <div class="question-mobile card">
       <div class="qnav"><button id="prevExamQ">←</button><strong id="examQLabel">Questão 1</strong><button id="nextExamQ">→</button></div>
+      <div class="question-image-wrap"><img id="questionImage" alt="Questão da prova anterior"></div>
       <div id="examChoices" class="exam-choices"></div>
-      <div id="examGrid" class="exam-grid"></div>
-      <button id="finishExam" class="primary wide">Finalizar e corrigir</button>
+      <div class="question-actions">
+        <button id="clearAnswer">Limpar resposta</button>
+        <button id="nextAfterAnswer" class="primary">Próxima questão →</button>
+      </div>
+      <details class="navigator"><summary>Navegar pelas questões</summary><div id="examGrid" class="exam-grid"></div></details>
+      <button id="finishExam" class="primary wide">Finalizar e corrigir prova</button>
     </div>
-  </div>
-</section>
+  </section>
 
 <section id="examResult" class="view">
   <div class="card center">

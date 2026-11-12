@@ -29,3 +29,13 @@ VERSÃO 3 — PROVAS REAIS INTERATIVAS
 - Questões anuladas tratadas separadamente
 - Histórico do último resultado salvo no navegador
 - Funciona offline após cache do PWA
+
+
+VERSÃO 4 — QUESTÃO POR QUESTÃO (CELULAR)
+- PDF não é mais necessário para resolver a prova.
+- Cada questão foi recortada do caderno original e aparece ampliada na tela.
+- Preserva códigos, gráficos, tabelas e formatação da banca.
+- Botões A–E imediatamente abaixo.
+- Próxima/anterior, limpar resposta e navegador recolhível.
+- Correção automática e histórico continuam funcionando.
+- PDFs permanecem no pacote apenas como fonte de conferência.
