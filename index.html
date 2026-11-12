@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=91">
 <title>CASAN 2026 — Preparação</title>
 </head>
 <body>
 <header>
-  <div><small>G Concursos • CASAN 2026 • V8</small><h1>Preparação — Analista de Sistemas</h1></div>
+  <div><small>G Concursos • CASAN 2026 • V9.1</small><h1>Preparação — Analista de Sistemas</h1></div>
   <button id="install" class="primary" hidden>Instalar</button>
 </header>
 <main>
@@ -48,7 +48,9 @@
   </div>
   <div class="question-mobile card">
       <div class="qnav"><button id="prevExamQ">←</button><strong id="examQLabel">Questão 1</strong><button id="nextExamQ">→</button></div>
-      <div class="question-image-wrap"><img id="questionImage" alt="Questão da prova anterior"></div>
+      <details id="supportBox" class="support-box" hidden><summary>Texto de apoio</summary><div id="supportText"></div></details>
+<div id="questionTextCard" class="question-text-card"></div>
+<div class="question-image-wrap" id="questionImageWrap" hidden><img id="questionImage" alt="Questão da prova anterior"></div>
       <div id="examChoices" class="exam-choices"></div>
       <div class="question-actions">
         <button id="clearAnswer">Limpar resposta</button>
@@ -76,6 +78,7 @@
 <nav>
 <button data-go="home">Início</button><button data-go="study">Estudar</button><button data-go="quiz">Questões</button><button data-go="errors">Erros</button><button data-go="previous">Provas</button><button data-go="sim">Simulado</button>
 </nav>
-<script src="questions-data.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="questions-data.js?v=91"></script>
+<script src="exam-text-data.js?v=91"></script>
+<script src="app.js?v=91"></script>
 </body></html>

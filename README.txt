@@ -61,3 +61,11 @@ VERSÃO 8 — CORREÇÃO DE RECORTES DA CASAN 2016
 - Remoção do rodapé/logo que estava sobrepondo partes de algumas questões.
 - Correção de casos como questão 3 e questão 6.
 - Arquivo continua autocontido com questions-data.js.
+
+
+VERSÃO 9 — TEXTO EXTRAÍDO DO PDF
+- CASAN 2016 usa texto HTML nativo nas 50 questões.
+- Enunciados e alternativas extraídos diretamente do PDF, sem OCR.
+- Texto de apoio recolhível para Português/Inglês.
+- Imagens ficam apenas como fallback para outras provas ou questões visuais.
+- Corrige cortes laterais e problemas de legibilidade causados por recortes.

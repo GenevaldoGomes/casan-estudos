@@ -73,7 +73,30 @@ function renderExamQuestion(){
  if(!activeExam)return;
  document.getElementById("examQLabel").textContent=`Questão ${examQ}`;
  const img=document.getElementById("questionImage");
- if(img){img.src=(window.QUESTION_IMAGES||{})[`${activeExam.id}-q${String(examQ).padStart(2,"0")}`]||"";img.alt=`${activeExam.title} — questão ${examQ}`;}
+ const imgWrap=document.getElementById("questionImageWrap");
+ const textCard=document.getElementById("questionTextCard");
+ const supportBox=document.getElementById("supportBox");
+ const supportText=document.getElementById("supportText");
+ const textExam=(window.EXAM_TEXT_DATA||{})[activeExam.id];
+ const tq=textExam && textExam.questions ? textExam.questions[examQ] : null;
+ if(tq && textCard){
+   textCard.hidden=false;
+   if(imgWrap) imgWrap.hidden=true;
+   textCard.innerHTML=`<div class="q-stem">${tq.stem}</div>`+
+     ["A","B","C","D","E"].map(l=>`<div class="q-option-text"><b>(${l})</b><span>${tq.options[l]||""}</span></div>`).join("");
+   let support="";
+   if(activeExam.id==="casan2016" && examQ>=1 && examQ<=10) support=textExam.support.portuguese||"";
+   if(activeExam.id==="casan2016" && examQ>=16 && examQ<=20) support=textExam.support.english||"";
+   if(supportBox && supportText){
+     supportBox.hidden=!support;
+     supportText.textContent=support;
+   }
+ } else {
+   if(textCard) textCard.hidden=true;
+   if(supportBox) supportBox.hidden=true;
+   if(imgWrap) imgWrap.hidden=false;
+   if(img){img.src=(window.QUESTION_IMAGES||{})[`${activeExam.id}-q${String(examQ).padStart(2,"0")}`]||"";img.alt=`${activeExam.title} — questão ${examQ}`;}
+ }
  document.getElementById("examChoices").innerHTML=["A","B","C","D","E"].map(l=>`<button class="exam-choice ${examAnswers[examQ]===l?"selected":""}" onclick="setExamAnswer('${l}')">${l}</button>`).join("");
  document.querySelectorAll("#examGrid button").forEach(b=>b.classList.toggle("current",+b.dataset.q===examQ));
 }

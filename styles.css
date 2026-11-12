@@ -456,3 +456,45 @@ nav button:hover{
   nav{bottom:8px;width:calc(100% - 12px);border-radius:15px;padding:5px}
   nav button{font-size:10px;padding:8px 2px!important}
 }
+
+.question-text-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px 24px;
+  margin:10px 0 16px;
+  font-size:18px;
+  line-height:1.55;
+}
+.q-stem{font-weight:750;margin-bottom:16px}
+.q-option-text{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:8px;
+  margin:10px 0;
+  align-items:start;
+}
+.q-option-text b{font-weight:800}
+.support-box{
+  border:1px solid var(--line);
+  background:#f8fafc;
+  border-radius:14px;
+  padding:0 16px;
+  margin:10px 0 14px;
+}
+.support-box summary{
+  cursor:pointer;
+  padding:13px 0;
+  font-weight:800;
+  color:var(--brand);
+}
+#supportText{
+  white-space:pre-wrap;
+  line-height:1.55;
+  padding:0 0 15px;
+  color:#334155;
+}
+@media(max-width:640px){
+  .question-text-card{font-size:16px;padding:17px 15px}
+  .q-option-text{grid-template-columns:34px 1fr;gap:5px}
+}
