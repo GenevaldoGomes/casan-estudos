@@ -69,3 +69,11 @@ VERSÃO 9 — TEXTO EXTRAÍDO DO PDF
 - Texto de apoio recolhível para Português/Inglês.
 - Imagens ficam apenas como fallback para outras provas ou questões visuais.
 - Corrige cortes laterais e problemas de legibilidade causados por recortes.
+
+
+VERSÃO 10
+- Avanço automático após marcar alternativa.
+- Alternativa marcada recebe destaque visual.
+- Resultado final com acertos, erros, percentual e tempo.
+- Lista de erros mostra o assunto/área.
+- Botão "Refazer somente as erradas".

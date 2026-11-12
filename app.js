@@ -56,7 +56,7 @@ function renderPrevious(){
 }
 let activeExam=null, examQ=1, examAnswers={}, examSeconds=0, examClock=null;
 function startPriorExam(id){
-  activeExam=priorExams.find(x=>x.id===id); if(!activeExam)return;
+  activeExam=priorExams.find(x=>x.id===id); if(!activeExam)return; wrongRetryMode=false; wrongRetryQuestions=[];
   examQ=1; examAnswers={}; examSeconds=0; clearInterval(examClock); examClock=null;
   document.getElementById("examTitle").textContent=activeExam.title;
   document.getElementById("examTimer").textContent="00:00:00";
@@ -69,6 +69,17 @@ document.getElementById("timerToggle").onclick=()=>{
  if(examClock){clearInterval(examClock);examClock=null;document.getElementById("timerToggle").textContent="Continuar cronômetro";}
  else{examClock=setInterval(()=>{examSeconds++;document.getElementById("examTimer").textContent=fmtTime(examSeconds)},1000);document.getElementById("timerToggle").textContent="Pausar";}
 };
+
+function subjectFor2016(q){
+  if(q>=1 && q<=10) return "Língua Portuguesa";
+  if(q>=11 && q<=15) return "Raciocínio Lógico-Matemático";
+  if(q>=16 && q<=20) return "Língua Inglesa";
+  if(q>=21 && q<=50) return "Conhecimentos Específicos";
+  return "Outros";
+}
+let wrongRetryMode=false;
+let wrongRetryQuestions=[];
+
 function renderExamQuestion(){
  if(!activeExam)return;
  document.getElementById("examQLabel").textContent=`Questão ${examQ}`;
@@ -100,7 +111,29 @@ function renderExamQuestion(){
  document.getElementById("examChoices").innerHTML=["A","B","C","D","E"].map(l=>`<button class="exam-choice ${examAnswers[examQ]===l?"selected":""}" onclick="setExamAnswer('${l}')">${l}</button>`).join("");
  document.querySelectorAll("#examGrid button").forEach(b=>b.classList.toggle("current",+b.dataset.q===examQ));
 }
-function setExamAnswer(letter){examAnswers[examQ]=letter;renderExamQuestion();renderExamGrid();updateExamProgress();}
+function setExamAnswer(letter){
+  examAnswers[examQ]=letter;
+  renderExamQuestion();
+  renderExamGrid();
+  updateExamProgress();
+
+  // brief visual confirmation, then advance automatically
+  const chosen=document.querySelector(`.exam-choice:nth-child(${["A","B","C","D","E"].indexOf(letter)+1})`);
+  if(chosen) chosen.classList.add("flash-selected");
+
+  const current=examQ;
+  setTimeout(()=>{
+    if(examQ!==current) return;
+    if(wrongRetryMode){
+      const idx=wrongRetryQuestions.indexOf(examQ);
+      if(idx>=0 && idx<wrongRetryQuestions.length-1){
+        goExamQ(wrongRetryQuestions[idx+1]);
+      }
+    } else if(examQ<activeExam.questions){
+      goExamQ(examQ+1);
+    }
+  }, 420);
+}
 function goExamQ(n){examQ=Math.max(1,Math.min(activeExam.questions,n));renderExamQuestion();}
 document.getElementById("prevExamQ").onclick=()=>goExamQ(examQ-1);
 document.getElementById("nextExamQ").onclick=()=>goExamQ(examQ+1);
@@ -111,7 +144,12 @@ function renderExamGrid(){
 function updateExamProgress(){
  if(!activeExam)return;
  const answered=Object.keys(examAnswers).length;
- document.getElementById("examProgress").textContent=`${answered}/${activeExam.questions} respondidas`;
+ if(wrongRetryMode){
+    const answeredWrong=wrongRetryQuestions.filter(n=>examAnswers[n]).length;
+    document.getElementById("examProgress").textContent=`${answeredWrong}/${wrongRetryQuestions.length} erradas respondidas`;
+  } else {
+    document.getElementById("examProgress").textContent=`${answered}/${activeExam.questions} respondidas`;
+  }
 }
 
 const clearBtn=document.getElementById("clearAnswer");
@@ -135,7 +173,51 @@ document.getElementById("finishExam").onclick=()=>{
  s.priorResults[activeExam.id]={score,valid,cancel,seconds:examSeconds,date:new Date().toLocaleDateString("pt-BR")};save();
  document.getElementById("examResultTitle").textContent=`${score}/${valid} — ${pct}%`;
  document.getElementById("examResultText").textContent=`${activeExam.title} • Tempo ${fmtTime(examSeconds)}${cancel?` • ${cancel} anulada(s)`:``}`;
- document.getElementById("examWrongList").innerHTML=wrongs.length?wrongs.map(x=>`<div class="wrong-item"><b>Questão ${x.n}</b> — sua resposta: ${x.ans} • gabarito: ${x.key}</div>`).join(""):`<div class="wrong-item cancelled"><b>Nenhum erro nas questões válidas.</b></div>`;
+
+ const errorCount=valid-score;
+ const metrics=document.getElementById("resultMetrics");
+ if(metrics){
+   metrics.innerHTML=`
+     <div class="metric-card"><span>Acertos</span><b>${score}</b></div>
+     <div class="metric-card"><span>Erros</span><b>${errorCount}</b></div>
+     <div class="metric-card"><span>Aproveitamento</span><b>${pct}%</b></div>
+     <div class="metric-card"><span>Tempo</span><b>${fmtTime(examSeconds)}</b></div>`;
+ }
+
+ document.getElementById("examWrongList").innerHTML=wrongs.length
+   ? wrongs.map(x=>{
+       const subject=activeExam.id==="casan2016"?subjectFor2016(x.n):"Questão de prova anterior";
+       return `<div class="wrong-item">
+         <div><b>Questão ${x.n}</b><span class="subject-pill">${subject}</span></div>
+         <div>Sua resposta: <b>${x.ans}</b> • Gabarito: <b>${x.key}</b></div>
+       </div>`;
+     }).join("")
+   : `<div class="wrong-item cancelled"><b>Nenhum erro nas questões válidas.</b></div>`;
+
+ wrongRetryQuestions=wrongs.map(x=>x.n);
+ const retryBtn=document.getElementById("retryWrongBtn");
+ if(retryBtn){
+   retryBtn.hidden=wrongRetryQuestions.length===0;
+ }
+
  show("examResult");
 };
 renderPrevious();
+
+
+const retryWrongBtn=document.getElementById("retryWrongBtn");
+if(retryWrongBtn){
+  retryWrongBtn.onclick=()=>{
+    if(!activeExam || !wrongRetryQuestions.length) return;
+    wrongRetryMode=true;
+    const prior={...examAnswers};
+    examAnswers={};
+    examQ=wrongRetryQuestions[0];
+    show("exam");
+    renderExamQuestion();
+    renderExamGrid();
+    updateExamProgress();
+    document.getElementById("examProgress").textContent=`0/${wrongRetryQuestions.length} erradas respondidas`;
+    document.getElementById("timerToggle").textContent="Cronômetro opcional";
+  };
+}
