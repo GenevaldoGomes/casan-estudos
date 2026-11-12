@@ -47,3 +47,10 @@ VERSÃO 6 — CORREÇÃO DE CACHE/DEPLOY
 - Service worker atualizado com network-first para HTML/CSS/JS.
 - skipWaiting + clients.claim para substituir versões antigas.
 - CSS e JS com ?v=6 para evitar cache do navegador.
+
+VERSÃO 7 — QUESTÕES INCORPORADAS
+- As 140 imagens das questões estão incorporadas em questions-data.js.
+- Não existe mais pasta questions obrigatória.
+- Não depende dos PDFs para exibir as questões.
+- Upload simplificado: index.html, styles.css, app.js, questions-data.js, sw.js, manifest.json, icon.svg.
+- Identificação V7 no cabeçalho.

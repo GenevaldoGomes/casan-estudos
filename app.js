@@ -73,7 +73,7 @@ function renderExamQuestion(){
  if(!activeExam)return;
  document.getElementById("examQLabel").textContent=`Questão ${examQ}`;
  const img=document.getElementById("questionImage");
- if(img){img.src=`questions/${activeExam.id}-q${String(examQ).padStart(2,"0")}.webp`;img.alt=`${activeExam.title} — questão ${examQ}`;}
+ if(img){img.src=(window.QUESTION_IMAGES||{})[`${activeExam.id}-q${String(examQ).padStart(2,"0")}`]||"";img.alt=`${activeExam.title} — questão ${examQ}`;}
  document.getElementById("examChoices").innerHTML=["A","B","C","D","E"].map(l=>`<button class="exam-choice ${examAnswers[examQ]===l?"selected":""}" onclick="setExamAnswer('${l}')">${l}</button>`).join("");
  document.querySelectorAll("#examGrid button").forEach(b=>b.classList.toggle("current",+b.dataset.q===examQ));
 }
