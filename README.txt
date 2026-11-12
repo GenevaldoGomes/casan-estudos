@@ -54,3 +54,10 @@ VERSÃO 7 — QUESTÕES INCORPORADAS
 - Não depende dos PDFs para exibir as questões.
 - Upload simplificado: index.html, styles.css, app.js, questions-data.js, sw.js, manifest.json, icon.svg.
 - Identificação V7 no cabeçalho.
+
+
+VERSÃO 8 — CORREÇÃO DE RECORTES DA CASAN 2016
+- Questões da CASAN 2016 regeneradas com costura entre colunas e páginas.
+- Remoção do rodapé/logo que estava sobrepondo partes de algumas questões.
+- Correção de casos como questão 3 e questão 6.
+- Arquivo continua autocontido com questions-data.js.
